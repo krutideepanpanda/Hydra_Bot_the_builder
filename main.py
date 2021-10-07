@@ -21,137 +21,15 @@ client = discord.Client()
 status = "I am daydreaming"
 
 #Triggers ------------------------------------------------------
-sad_words = ["sad", "depressed", "depressing", "depression", "unhappy", "angry", "miserable", "pissed", "screw", "pissing", "irritating", "suck", "sucks", "get lost", "boring", "idiot", "bored", "screwed", "FML", "fuck", "die", "stupid", "hate", "dumb", "breakdown", "kill me", "scary", "scared", "anxiety", "fak"]
-
-happy_words = ["proud", "love", "glad", "happy", "thanks", "thank", "welcome"]
-
 bled_rever = ["bledrever", "rever", "bled rever", "bled", "betrayer"]
 
-darth_vader = ["darth vader", "darth", "vader", "darthvader"]
-
 rick_roll = ["rick", "roll", "rickroll"]
-
-demon_slayer = ["demon", "slayer", "demon slayer", "kimetsu no yaiba", "hashira"]
-
 #Replies ----------------------------------------------------------
-starter_encouragements = [
-  "Obviously you suck",
-  "I don't want to encourage you today, so die",
-  "Sometimes people wish their lives was like someone else's, but i am glad my life isn't like yours",
-  "https://tenor.com/view/manga-anime-death-note-gif-14844099",
-  "What a save!",
-  "https://tenor.com/view/sangatsu-no-lion-march-comes-in-like-a-lion-3gatsu-no-lion-rei-kiriyama-crying-gif-18524205",
-  "https://tenor.com/view/gokushufudou-gif-21119657",
-  "You are so stupid that even assigning a positive IQ point to you is a sin.",
-  "Your existence is the reason we had a pandemic.",
-  "Have you ever considered euthanasia?",
-  "Why are you so useless?",
-  "https://tenor.com/view/the-office-why-michael-scott-gif-5422774",
-  "https://tenor.com/view/flipping-off-flip-off-middle-finger-smile-happy-gif-4746862",
-  "https://tenor.com/view/youre-so-weak-weak-powerless-judging-despise-gif-15666774",
-  "https://tenor.com/view/himejima-gyoumei-anime-cry-stone-gif-18292656",
-  "https://tenor.com/view/excuses-mugen-samauri-champloo-anime-gif-13457071",
-]
-
-happy_reply = [
-  "I am proud of you",
-  "Love me, cause my life is better than yours",
-  "Just wait, tomorrow I will ruin your happiness",
-]
-
-happy_reply_kruti = [
-  "https://tenor.com/view/awesome-you-are-guys-gorilla-thumbs-up-gif-13633109",
-  "https://tenor.com/view/noice-brooklyn-ninenine-b99-smile-gif-11928987",
-  "https://tenor.com/view/friends-keep-it-up-thumbs-up-gif-13267317",
-]
-
-sad_reply_kruti = [
-    "https://tenor.com/view/chillin-lazt-sloth-hang-in-there-it-will-get-better-gif-15012100",
-  "https://tenor.com/view/quotes-anime-gif-20588266",
-  "https://tenor.com/view/-gif-3730657",
-  "https://imgur.com/iwG4TwE",
-  "https://tenor.com/view/milk-and-mocha-bear-couple-wake-up-cute-kawaii-gif-13624283",
-  "https://tenor.com/view/-gif-4474285",
-  "https://imgur.com/bgVaHMd",
-  "https://tenor.com/view/there-cheer-up-buttercup-it-gif-21613666",
-  "https://tenor.com/view/could-be-worse-worse-eek-yikes-its-alright-gif-13884804",
-  "https://tenor.com/view/april-fools-joke-dog-its-fine-this-is-not-gif-16757454",
-  "https://tenor.com/view/tipsy-cheer-up-cheer-dance-be-happy-gif-17211808",
-  "Cheer up!",
-  "Hang in there.",
-  "Rise my drengr and fight on, for we fight for valhalla",
-]
-
-self_roast = [
-  "https://tenor.com/view/trash-ass-filth-ass-garbage-ass-shit-crap-gif-14818418",
-  "https://tenor.com/view/trash-you-are-trash-i-am-trash-when-you-know-stumble-gif-11969610",
-  "https://tenor.com/view/the-lego-movie-batman-you-are-so-disappointing-on-so-many-levels-disappointed-disappointment-gif-22490626",
-  "https://tenor.com/view/star-wars-yoda-you-are-such-a-failure-i-look-at-you-with-disgrace-gif-17069251",
-  "https://tenor.com/view/anime-izaya-orihara-durarara-drrr-die-here-gif-12286708",
-  "https://tenor.com/view/anime-haikyu-stupid-haikyuu-hinata-gif-12213790"
-]
 
 angry_bot_reply = [
   "https://tenor.com/view/gun-reload-sniper-gif-16301372",
   "https://tenor.com/view/doom-slayer-reload-gun-gif-19444267",
   "https://tenor.com/view/shame-gun-thats-a-shame-rifle-reload-gif-16005192"
-]
-
-vader_reply = [
-  "https://tenor.com/view/darth-vader-fog-star-wars-smoke-dramatic-gif-4842714",
-  "https://tenor.com/view/dance-happy-darthvader-gif-4946439",
-  "https://tenor.com/view/darth-vader-star-wars-snowing-gif-14696435",
-  "https://tenor.com/view/star-wars-darth-vader-if-you-only-knew-the-power-of-the-dark-side-gif-15855616",
-  "https://tenor.com/view/star-wars-correct-way-luke-i-am-your-father-darth-vader-gif-15796921"
-]
-
-yoda_reply = [
-  "https://tenor.com/view/teach-you-yoda-star-wars-mentor-teach-you-i-will-gif-13942585",
-  "https://tenor.com/view/yoda-suicide-squad-dance-dancing-gif-5970653",
-  "https://tenor.com/view/baby-yoda-hi-hello-greet-wave-gif-15912640",
-  "https://tenor.com/view/yoda-sarcasm-gif-12984296",
-  "https://tenor.com/view/yoda-much-to-learn-star-wars-attack-electricity-gif-10182983",
-  "https://tenor.com/view/yoda-patience-you-must-have-patience-gif-15254127"
-]
-
-cheer = [
-  "https://tenor.com/view/snoopy-cheerleader-cheer-gif-8670539",
-  "https://tenor.com/view/cheering-minions-despicable-me-cheer-gif-4968109",
-  "https://tenor.com/view/quby-cute-adorable-cheer-gif-15071381",
-  "https://tenor.com/view/pikachu-cheer-dance-pokemon-gif-16127538",
-]
-
-demon_slayer_reply = [
-  "https://tenor.com/view/kimetsu-no-yaiba-demon-slayer-demon-slayer-corps-breath-of-thunder-gif-17177170",
-  "https://tenor.com/view/anime-zenitsu-agatsuma-demon-slayer-kimetsu-no-yaiba-flowers-gif-17636946",
-  "https://tenor.com/view/anime-demon-slayer-kimetsu-no-yaiba-tanjiro-gif-14748917",
-  "https://tenor.com/view/zenitsu-zenitsu-agatsuma-demon-slayer-kimetsu-no-yaiba-gif-14668491",
-  "https://tenor.com/view/nezuko-anime-demon-slayer-kimetsu-no-yaiba-gif-15131994",
-  "https://tenor.com/view/anime-demon-slayer-kimetsu-no-yaiba-nezuko-running-gif-14870818",
-  "https://tenor.com/view/kimetsu-no-yaiba-demon-slayer-pig-angry-inosuke-hashibira-gif-14905892",
-  "https://tenor.com/view/kimetsu-no-yaiba-tanjiro-kamado-sleep-demon-slayer-kamado-tanjiro-gif-15590897",
-  "https://tenor.com/view/tanjiro-udon-eating-hungry-demon-slayer-gif-16830905",
-  "https://tenor.com/view/kyojuro-rengoku-vs-akaza-demon-fight-fighting-flame-aura-gif-22077091",
-  "https://tenor.com/view/tanjiro-j8-demon-slayer-run-fire-gif-14745537",
-]
-
-tanjiro_reply = [
-  "https://tenor.com/view/tanjiro-j8-demon-slayer-run-fire-gif-14745537",
-  "https://tenor.com/view/tanjiro-udon-eating-hungry-demon-slayer-gif-16830905",
-  "https://tenor.com/view/kimetsu-no-yaiba-tanjiro-kamado-sleep-demon-slayer-kamado-tanjiro-gif-15590897",
-  "https://tenor.com/view/anime-demon-slayer-kimetsu-no-yaiba-tanjiro-gif-14748917",
-]
-
-nezuko_reply = [
-  "https://tenor.com/view/nezuko-anime-demon-slayer-kimetsu-no-yaiba-gif-15131994",
-  "https://tenor.com/view/nezuko-anime-demon-slayer-kimetsu-no-yaiba-gif-15131994",
-  "https://tenor.com/view/anime-demon-slayer-kimetsu-no-yaiba-nezuko-running-gif-14870818",
-]
-
-zenitsu_reply = [
-  "https://tenor.com/view/anime-zenitsu-agatsuma-demon-slayer-kimetsu-no-yaiba-flowers-gif-17636946",
-  "https://tenor.com/view/zenitsu-zenitsu-agatsuma-demon-slayer-kimetsu-no-yaiba-gif-14668491",
-  "https://tenor.com/view/kimetsu-no-yaiba-demon-slayer-demon-slayer-corps-breath-of-thunder-gif-17177170",
 ]
 
 # Points and levels manager
@@ -210,8 +88,11 @@ def get_turn():
 
 def update_turn():
   global player_turn
-  player_turn = player_turn + 1
-  return player_turn
+  if player_turn == len(player) - 1:
+    player_turn = 0
+  else:
+    player_turn = player_turn + 1
+
 #---------------------------------------------------------------
 
 #Used to get quotes for $inspire
@@ -320,6 +201,10 @@ async def on_message(message):
 
   if msg == 'yes' and message.author.id in player and game_status=='waiting':
     game_status = "started"
+    turn = get_turn()
+    ping = player[turn]
+    await message.channel.send(f"<@{ping}>, its your turn. Use $roll to roll the dice")
+    next_turn = True
 
   if game_status == 'completed':
     player = []
@@ -328,95 +213,52 @@ async def on_message(message):
     player_number = 0
     next_turn = False
   
-  if next_turn:
-    turn  = get_turn()
-    ping = player[turn]
-
-    await message.channel.send(f"<@{ping}>, its your turn. Use $roll to roll the dice")
-
-    next_turn = False
+  #if next_turn:
+  #  turn  = get_turn()
+  #  ping = player[turn]
+  #
+  #  await message.channel.send(f"<@{ping}>, its your turn. Use $roll to roll the dice")
+  #  next_turn = False
 
   if msg == "$roll":
+    turn  = get_turn()
     if message.author.id == player[turn]:
       dice = random.randint(1,6)
       await message.reply(f"You rolled ..... {str(dice)}")
 
-      if players_game[player[turn]] == 0 and dice != 6:
-        await message.reply(f"<@{player[turn]}>, you need a better roll to start.")
-      else:
-        tile, condn = update_tile(players_game[player[turn]])
+      tile, condn = update_tile(players_game[player[turn]])
 
-        players_game[player[turn]] = tile
+      players_game[player[turn]] = tile
 
-        if condn == "win":
-          game_status = "Completed"
-          await message.reply(f"<@{player[turn]}>, You WIN!")
-          await message.reply("Now go do something productive you lazy bum.")
-        elif condn == "ladder":
-          await message.reply(f"<@{player[turn]}>, You got a ladder!, you are now in {str(tile)}")
-        elif condn == "snake":
-          await message.reply(f"<@{player[turn]}>, You got eaten by a snake!, you are now in {str(tile)}")
-        else :
-            await message.reply(f"<@{player[turn]}>, you are now in {str(tile)}")
+      if condn == "win":
+        game_status = "Completed"
+        await message.reply(f"<@{player[turn]}>, You WIN!")
+        await message.reply("Now go do something productive you lazy bum.")
+        next_turn = False
+      elif condn == "ladder":
+        await message.reply(f"<@{player[turn]}>, You got a ladder!, you are now in {str(tile)}")
+      elif condn == "snake":
+        await message.reply(f"<@{player[turn]}>, You got eaten by a snake!, you are now in {str(tile)}")
+      else :
+          await message.reply(f"<@{player[turn]}>, you are now in {str(tile)}")
+
+    if next_turn :
+      update_turn()
+      turn = get_turn()
+      ping = player[turn]
+      await message.channel.send(f"<@{ping}>, its your turn. Use $roll to roll the dice")
+        
     else:
       await message.reply("Its not your turn, so get rickrolled.")
       await message.reply("https://tenor.com/view/rick-astley-rick-roll-dancing-dance-moves-gif-14097983")
   #-------------------------------------------------------
 
-  #roast yourself
-  if msg.startswith('insult me') or msg.startswith('roast me') or msg.startswith('self roast'):
-    status = "F, someone is having a bad day"
-
-    await message.reply(random.choice(self_roast))
-
-  #displays bot's mood
-  if msg.startswith('$mood'):
-     
-
-    await message.reply(status)
-
-    if status == "Lol get rick rolled":
-      await message.reply("https://tenor.com/view/rick-astley-rick-roll-dancing-dance-moves-gif-14097983")
-
-  #cheering
-  if msg.startswith("$cheer"):
-    status = "I feel happy for you"
-     
-
-    await message.reply(random.choice(cheer))
-
-  #insulting NITK
-  if msg.startswith('NITK sucks') or msg.startswith('nitk sucks') or msg.startswith('stupid NITK') or msg.startswith('stupid nitk'):
-    status = "Boi am I glad I am not in NITK"
-
-    await message.reply("https://tenor.com/view/true-its-true-dwight-schrute-the-office-rainn-wilson-gif-6161302")
-
-  #Reply to sad stuff
-  if any(word in msg for word in sad_words) and not (msg.startswith('stupid bot')):
-    status = "I feel... Ummm.. better than you"     
-
-    if not(msg.startswith('NITK sucks') or msg.startswith('nitk sucks') or msg.startswith('stupid NITK') or msg.startswith('stupid nitk')):
-      if (str(message.author) == "SoulGodAlpha#4645") :
-        await message.reply(random.choice(sad_reply_kruti))
-      else:
-        await message.reply(random.choice(starter_encouragements))
-
   #getting rickrolled
   if any(word in msg for word in rick_roll) and msg != '$roll':
     status = "Lol get rick rolled"
-     
 
     await message.reply("https://tenor.com/view/rick-astley-rick-roll-dancing-dance-moves-gif-14097983")
 
-  #happy reply
-  if any(word in msg for word in happy_words) and not (msg.startswith("thanks bot") or msg.startswith("thank you bot")):
-    status = "I am very very happy"
-     
-
-    if (str(message.author) == "SoulGodAlpha#4645") :
-      await message.reply(random.choice(happy_reply_kruti))
-    else:
-      await message.reply(random.choice(happy_reply))
 
   #bot specific reactions 
   #--------------------------------------------------------------
@@ -461,65 +303,6 @@ async def on_message(message):
 
     await message.reply("https://tenor.com/view/hat-tip-thanks-thank-you-welcome-youre-welcome-gif-18643868")
   #----------------------------------------------------------------
-
-  #star wars references 
-  #--------------------------------------------------------------
-  if msg == 'hello there':
-    status = "I wanna watch Star Wars"
-     
-
-    await message.reply("https://tenor.com/view/hello-there-hi-there-greetings-gif-9442662")
-    await message.reply("https://tenor.com/view/hello-there-general-kenobi-star-wars-grevious-gif-17774326")
-
-  if 'yoda'in msg:
-    status = "happy, I am"
-
-    await message.reply(random.choice(yoda_reply))
-
-  if any(word in msg for word in darth_vader):
-    status = "The dark side is too strong"   
-
-    await message.reply(random.choice(vader_reply))
-  #-------------------------------------------------------
-
-  #MHA references
-  #--------------------------------------------------------------
-  if "plus ultra" in msg:
-    status = "I am super pumped up"
-
-    await message.reply("https://tenor.com/view/endeavour-plus-ultra-prominence-burn-fire-my-hero-academia-gif-16784832")
-  #-------------------------------------------------------
-
-  #Demon Slayer references
-  #--------------------------------------------------------------
-  if any(word in msg for word in demon_slayer):
-    status = "Tanjiro is the best"
-     
-    await message.reply(random.choice(demon_slayer_reply))
-
-  if ("tanjiro" in msg):
-    status = "Tanjiro is the best"
-     
-    await message.reply(random.choice(tanjiro_reply))
-
-  if ("nezuko" in msg):
-    status = "Tanjiro is the best"
-     
-    await message.reply(random.choice(nezuko_reply))
-
-  if ("zenitsu" in msg):
-    status = "Tanjiro is the best"
-     
-    await message.reply(random.choice(zenitsu_reply))
-#-------------------------------------------------------
-
-#LOTR references
-  #--------------------------------------------------------------
-  if "precious" in msg:
-    status = "MY PRECIOUSSSS"
-     
-    await message.reply("https://tenor.com/view/my-precious-precious-amazed-bilbo-baggins-lord-of-the-r-ings-gif-16270634")
-#-------------------------------------------------------
 
 #checks for edits
 @client.event
