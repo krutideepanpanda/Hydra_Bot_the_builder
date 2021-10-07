@@ -18,7 +18,7 @@ keys = db.keys()
 client = discord.Client()
 
 # Bot mood
-status = "I am daydreaming" 
+status = "I am daydreaming"
 
 #Triggers ------------------------------------------------------
 sad_words = ["sad", "depressed", "depressing", "depression", "unhappy", "angry", "miserable", "pissed", "screw", "pissing", "irritating", "suck", "sucks", "get lost", "boring", "idiot", "bored", "screwed", "FML", "fuck", "die", "stupid", "hate", "dumb", "breakdown", "kill me", "scary", "scared", "anxiety", "fak"]
@@ -153,13 +153,15 @@ zenitsu_reply = [
   "https://tenor.com/view/zenitsu-zenitsu-agatsuma-demon-slayer-kimetsu-no-yaiba-gif-14668491",
   "https://tenor.com/view/kimetsu-no-yaiba-demon-slayer-demon-slayer-corps-breath-of-thunder-gif-17177170",
 ]
+
+# Points and levels manager
 #---------------------------------------------------------------
 
 def getPoint(user):
   return user["points"]
 
-def updatePoint(user):
-  user["points"] = user["points"] + 1
+def updatePoint(user, i=1):
+  user["points"] = user["points"] + i
 
 def getLevel(user):
   points = user["points"]
@@ -173,7 +175,44 @@ def getLevel(user):
 
   return user["level"]
 
-#------------------------------------------------
+#---------------------------------------------------------------
+
+# Snakes and Ladders
+#---------------------------------------------------------------
+game_status = ""
+player = []
+players_game = {}
+player_turn = 0
+player_number = 0
+next_turn = False
+ladder_trig = [1, 4, 8, 21, 28, 50, 71, 80]
+snake_trig = [32, 36, 48, 62, 88, 95, 97]
+ladders = {1:38, 4:14, 8:30, 21:42, 28:76, 50:67, 71:92, 80:99}
+snakes = {32:10, 36:6, 48:26, 62:18, 88:24, 95:56, 97:78}
+
+#updates the tile
+def update_tile(tile):
+  condn = "" #stores condition of the user
+  if tile == 100:
+    condn = "win"
+    return tile, condn
+  elif tile in ladder_trig:
+    condn = "ladder"
+    return ladders[tile], condn
+  elif tile in snake_trig:
+    condn = "snake"
+    return snakes[tile], condn
+  else :
+    return tile
+
+def get_turn():
+  return player_turn
+
+def update_turn():
+  global player_turn
+  player_turn = player_turn + 1
+  return player_turn
+#---------------------------------------------------------------
 
 #Used to get quotes for $inspire
 def get_quote():
@@ -234,13 +273,71 @@ async def on_message(message):
     await message.channel.send("$inspire - gives an inspirational quote")
     await message.channel.send("$stats - see your stats")
     await message.channel.send("$mood - see bots mood")
+    await message.channel.send("$game - to play snakes and ladders")
     await message.channel.send("And there are many more triggers you have to find it out yourself")
   #-------------------------------------------------------
   
   #testing pinging users----------------------------------
-  if (msg == "ping"):
-    id = "293905713498161152"
-    await message.channel.send(f"<@{id}>")
+  #if (msg == "ping"):
+  #  id = "293905713498161152"
+  #  await message.channel.send(f"<@{id}>")
+  #-------------------------------------------------------
+
+  #Snakes and Ladders
+  #-------------------------------------------------------
+  global player_number
+  global player
+  global game_status
+  global players_game
+  global next_turn
+  if msg.startswith('$game'): 
+    status = "Playing Snakes and Ladders"
+
+    new_player = message.author.id
+
+    if game_status == 'started':
+      await message.channel.send("Wait for the previous game to get over you dumb twat.")
+    else:
+      game_status = "waiting"
+      if player_number == 0:
+        await message.channel.send("You have been registered for snakes and ladders, waiting for more players")
+        player.append(new_player)
+        players_game[new_player] = 0
+        player_number = player_number + 1
+
+      elif player_number < 4:
+        await message.channel.send("Minimum players satisfied. Do you want to start the game?")
+        player.append(new_player)
+        players_game[new_player] = 0
+        player_number = player_number + 1
+
+      elif player_number == 4:
+        await message.channel.send("Max players reached, try some other time.")
+        player_number = player_number + 1
+        game_status = "started"
+        next_turn = True
+
+  if msg == 'yes' and message.author.id in player and game_status=='waiting':
+    game_status = "started"
+  
+  if next_turn:
+    turn  = get_turn()
+    ping = player[turn]
+
+    await message.channel.send(f"<@{ping}>, its your turn. Use $roll to roll the dice")
+
+    next_turn = False
+
+  if msg == "$roll":
+    if message.author.id == player[turn]:
+      dice = random.randint(1,6)
+      await message.reply(f"You rolled ..... {str(dice)}")
+
+      if players_game[player[turn]] == 0 and dice == 6:
+        tile, cond = update_tile(players_game[player[turn]])
+    else:
+      await message.reply("Its not your turn, so get rickrolled.")
+      await message.reply("https://tenor.com/view/rick-astley-rick-roll-dancing-dance-moves-gif-14097983")
   #-------------------------------------------------------
 
   #roast yourself
@@ -282,7 +379,7 @@ async def on_message(message):
         await message.reply(random.choice(starter_encouragements))
 
   #getting rickrolled
-  if any(word in msg for word in rick_roll):
+  if any(word in msg for word in rick_roll) and msg != '$roll':
     status = "Lol get rick rolled"
      
 
