@@ -23,8 +23,6 @@ status = "I am daydreaming"
 #Triggers ------------------------------------------------------
 sad_words = ["sad", "depressed", "depressing", "depression", "unhappy", "angry", "miserable", "pissed", "screw", "pissing", "irritating", "suck", "sucks", "get lost", "boring", "idiot", "bored", "screwed", "FML", "fuck", "die", "stupid", "hate", "dumb", "breakdown", "kill me", "scary", "scared", "anxiety", "fak"]
 
-happy_words_vinneth = ["proud", "love", "glad", "happy", "thanks", "thank", "welcome", "hehehehe", "lol", "haha"]
-
 happy_words = ["proud", "love", "glad", "happy", "thanks", "thank", "welcome"]
 
 bled_rever = ["bledrever", "rever", "bled rever", "bled", "betrayer"]
@@ -82,26 +80,6 @@ sad_reply_kruti = [
   "Cheer up!",
   "Hang in there.",
   "Rise my drengr and fight on, for we fight for valhalla",
-]
-
-vinneth_roasts = [
-  "Vinneth is so dumb that we had to develop a negative IQ test.",
-  "There are people who know tech, there are those who don't and then there is Vineeth. He can mess up stuff even with detailed instructions.",
-  "Boi i am glad my life isn't bad as his.",
-  "I have better things to do than bother about this scum.",
-  "Vinneth is such a loser, even if he went to gay bar he wouldn't get hit on.",
-  "Some ppl get addicted to internet. Some ppl are in control of it. And then there is Vineeth, the internet itself is addicted to him!",
-  "I have better things to do than roasting him, do it yourself",
-  "He is so stupid that even if he had answers right infront of him, he would still fail a test.",
-  "If laughter is the best medicine, your face must be curing the world.",
-  "I'm glad to see you're not letting your education get in the way of your ignorance.",
-  "Learn to read messages, and maybe people won't seenzone you.",
-  "If I wanted to kill myself, I'd climb to your procastination levels and jump to your iq.",
-  "If I had a dollar for everytime you said something smart, I'd be broke.",
-  "When you were born the doctor threw you out of the window and the window threw you right back.",
-  "Your secrets are always safe with me. I never even listen when you tell me them.",
-  "Mirrors can't talk. Lucky for you, they can't laugh either.",
-  "https://tenor.com/view/sabrina-the-teenage-witch-salem-saberhagen-salem-quotes-tv-gif-16375816",
 ]
 
 self_roast = [
@@ -248,7 +226,7 @@ async def on_message(message):
     await message.reply(f'Points :{points}, Level: {level}')
   #---------------------------------------------------------------
 
-  #help
+  #help---------------------------------------------------
   if msg.startswith('$help'):
     status = "Do something you bloody loser"    
 
@@ -257,8 +235,12 @@ async def on_message(message):
     await message.channel.send("$stats - see your stats")
     await message.channel.send("$mood - see bots mood")
     await message.channel.send("And there are many more triggers you have to find it out yourself")
-
+  #-------------------------------------------------------
   
+  #testing inging users----------------------------------
+  
+  #-------------------------------------------------------
+
   #roast yourself
   if msg.startswith('insult me') or msg.startswith('roast me') or msg.startswith('self roast'):
     status = "F, someone is having a bad day"
@@ -292,7 +274,7 @@ async def on_message(message):
     status = "I feel... Ummm.. better than you"     
 
     if not(msg.startswith('NITK sucks') or msg.startswith('nitk sucks') or msg.startswith('stupid NITK') or msg.startswith('stupid nitk')):
-      if (str(message.author) in exempt) :
+      if (str(message.author) == "SoulGodAlpha#4645") :
         await message.reply(random.choice(sad_reply_kruti))
       else:
         await message.reply(random.choice(starter_encouragements))
@@ -309,7 +291,7 @@ async def on_message(message):
     status = "I am very very happy"
      
 
-    if (str(message.author) in exempt) :
+    if (str(message.author) == "SoulGodAlpha#4645") :
       await message.reply(random.choice(happy_reply_kruti))
     else:
       await message.reply(random.choice(happy_reply))
@@ -423,7 +405,7 @@ async def on_message_edit(before, after):
     if before.content != after.content:
       msg = after.content
       msg = msg.lower()
-      if (str(after.author) not in exempt): 
+      if (str(after.author) == "SoulGodAlpha#4645"): 
         await after.reply(f"{after.author.mention} you can't just edit messages and think you are smart")
 
 
