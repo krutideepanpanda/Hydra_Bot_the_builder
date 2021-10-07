@@ -237,8 +237,10 @@ async def on_message(message):
     await message.channel.send("And there are many more triggers you have to find it out yourself")
   #-------------------------------------------------------
   
-  #testing inging users----------------------------------
-  
+  #testing pinging users----------------------------------
+  if (msg == "ping"):
+    id = "293905713498161152"
+    await message.channel.send(f"<@{id}>")
   #-------------------------------------------------------
 
   #roast yourself
