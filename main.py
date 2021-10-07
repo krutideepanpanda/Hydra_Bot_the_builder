@@ -203,7 +203,7 @@ def update_tile(tile):
     condn = "snake"
     return snakes[tile], condn
   else :
-    return tile
+    return tile, condn
 
 def get_turn():
   return player_turn
@@ -290,6 +290,7 @@ async def on_message(message):
   global game_status
   global players_game
   global next_turn
+  global player_turn
   if msg.startswith('$game'): 
     status = "Playing Snakes and Ladders"
 
@@ -306,7 +307,7 @@ async def on_message(message):
         player_number = player_number + 1
 
       elif player_number < 4:
-        await message.channel.send("Minimum players satisfied. Do you want to start the game?")
+        await message.channel.send("Minimum players satisfied. Do you want to start the game (yes/no)?")
         player.append(new_player)
         players_game[new_player] = 0
         player_number = player_number + 1
@@ -319,6 +320,13 @@ async def on_message(message):
 
   if msg == 'yes' and message.author.id in player and game_status=='waiting':
     game_status = "started"
+
+  if game_status == 'completed':
+    player = []
+    players_game = {}
+    player_turn = 0
+    player_number = 0
+    next_turn = False
   
   if next_turn:
     turn  = get_turn()
@@ -333,8 +341,23 @@ async def on_message(message):
       dice = random.randint(1,6)
       await message.reply(f"You rolled ..... {str(dice)}")
 
-      if players_game[player[turn]] == 0 and dice == 6:
-        tile, cond = update_tile(players_game[player[turn]])
+      if players_game[player[turn]] == 0 and dice != 6:
+        await message.reply(f"<@{player[turn]}>, you need a better roll to start.")
+      else:
+        tile, condn = update_tile(players_game[player[turn]])
+
+        players_game[player[turn]] = tile
+
+        if condn == "win":
+          game_status = "Completed"
+          await message.reply(f"<@{player[turn]}>, You WIN!")
+          await message.reply("Now go do something productive you lazy bum.")
+        elif condn == "ladder":
+          await message.reply(f"<@{player[turn]}>, You got a ladder!, you are now in {str(tile)}")
+        elif condn == "snake":
+          await message.reply(f"<@{player[turn]}>, You got eaten by a snake!, you are now in {str(tile)}")
+        else :
+            await message.reply(f"<@{player[turn]}>, you are now in {str(tile)}")
     else:
       await message.reply("Its not your turn, so get rickrolled.")
       await message.reply("https://tenor.com/view/rick-astley-rick-roll-dancing-dance-moves-gif-14097983")
