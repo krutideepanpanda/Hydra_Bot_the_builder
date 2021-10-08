@@ -229,10 +229,10 @@ async def on_message(message):
 
   if msg == '$forefeit' and game_status=='started':
     temp = message.author.id
-    if player[0] == id:
+    if player[0] == temp:
       await message.channel.send(f"<@{player[1]}> id the new game leader")
     player.remove(temp)
-    players_game.pop(id)
+    players_game.pop(temp)
     if len(player) < 2:
       game_status = 'completed'
       await message.channel.send(f"<@{message.author.id}>, because of you the game had to end. What a sore loser.")
