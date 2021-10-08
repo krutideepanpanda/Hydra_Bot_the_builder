@@ -21,7 +21,7 @@ client = discord.Client()
 status = "I am daydreaming"
 
 #Triggers ------------------------------------------------------
-bled_rever = ["bledrever", "rever", "bled rever", "bled", "betrayer"]
+hydra = ["hydra", "hail", "hail hydra"]
 
 rick_roll = ["rick", "roll", "rickroll"]
 #Replies ----------------------------------------------------------
@@ -144,6 +144,7 @@ async def on_message(message):
       updatePoint(user)
     else:
       db[str(message.author.id)] = new_user
+      user = new_user
 
     points = user["points"]
     level = getLevel(user)
@@ -155,7 +156,13 @@ async def on_message(message):
   if msg.startswith('$help'):
     status = "Do something you bloody loser"    
     
-    info = "Lol what a loser. You need help for this also. Anyways here it is -\n$inspire - gives an inspirational quote\n$stats - see your stats\n$mood - see bots mood\n$game - to play snakes and ladders\n$gameboard - displays the gameboard\nAnd there are many more triggers you have to find it out yourself"
+    info = "Lol what a loser. You need help for this also. Anyways here it is -\n$inspire - gives an inspirational quote\n$stats - see your stats\n$mood - see bots mood\n$game - to play snakes and ladders\n$gameboard - displays the gameboard\n$gamerule - to see all the rules of the game\nAnd there are many more triggers you have to find it out yourself"
+    await message.reply(info)
+
+  #displays bot's mood
+  if msg.startswith('$gamerule'):
+    info = "Maximum of 4 and a minimum of 2 people can play this game of snakes and ladders.\nOnly the person to start the game can cancel the game by using - $cancel\n$forfeit - to forfeit the game\n$gameboard to see the game board"
+
     await message.reply(info)
   #-------------------------------------------------------
 
@@ -195,13 +202,13 @@ async def on_message(message):
         players_game[new_player] = 0
         player_number = player_number + 1
 
-      elif player_number < 4:
+      elif player_number < 3:
         await message.channel.send("Minimum players satisfied. Do you want to start the game (yes/no)?")
         player.append(new_player)
         players_game[new_player] = 0
         player_number = player_number + 1
 
-      elif player_number == 4:
+      elif player_number == 3:
         await message.channel.send("Max players reached, try some other time.")
         player_number = player_number + 1
         game_status = "started"
@@ -227,7 +234,7 @@ async def on_message(message):
     await message.channel.send("Game cancelled")
     next_turn = False
 
-  if msg == '$forefeit' and game_status=='started':
+  if msg == '$forfeit' and game_status=='started':
     temp = message.author.id
     if player[0] == temp:
       await message.channel.send(f"<@{player[1]}> id the new game leader")
@@ -284,6 +291,20 @@ async def on_message(message):
 
     await message.reply("https://tenor.com/view/rick-astley-rick-roll-dancing-dance-moves-gif-14097983")
 
+  #send quotes
+  if msg.startswith('$inspire'):
+    status = "I feel like inspiring someone"
+
+    quote = get_quote()
+    await message.reply(quote)
+
+  #displays bot's mood
+  if msg.startswith('$mood'):
+
+    await message.reply(status)
+
+    if status == "Lol get rick rolled":
+      await message.reply("https://tenor.com/view/rick-astley-rick-roll-dancing-dance-moves-gif-14097983")
 
   #bot specific reactions 
   #--------------------------------------------------------------
@@ -309,17 +330,17 @@ async def on_message(message):
      
 
     if (str(message.author)  in ["SoulGodAlpha#4645"]):
-      status = "My creater scolded me, Bled is sad."
+      status = "My creater scolded me, Hydra is sad."
       await message.reply("https://tenor.com/view/sad-anime-boy-sad-eyes-sad-face-gif-16059018")
     else :
       status = "Lol some failure scolded me"
       await message.reply(random.choice(angry_bot_reply))
 
-  if any(word in msg for word in bled_rever):
+  if any(word in msg for word in hydra):
     status = "Oi don't you dare talk behind my backs"
 
-    await message.reply("Who dares talk about me!")
-    await message.reply("https://tenor.com/view/anger-rage-gif-18526129")
+    await message.reply("HAIL HYDRA!!!!!!!!!!")
+    await message.reply("https://tenor.com/view/agents-of-shield-hydra-gif-4226521A")
 
   #["thanks bot", "thank you bot"]
   if msg.startswith("thanks bot") or msg.startswith("thank you bot"):
