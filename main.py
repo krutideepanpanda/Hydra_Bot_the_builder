@@ -222,7 +222,7 @@ async def on_message(message):
     await message.channel.send(f"<@{ping}>, its your turn. Use $roll to roll the dice")
     next_turn = True
   
-  if msg == '$cancel' and message.author.id == player[0] and game_status=='started':
+  if msg == '$cancel' and message.author.id == player[0]:
     game_status = 'completed'
     await message.channel.send("Game canceled")
     next_turn = False
