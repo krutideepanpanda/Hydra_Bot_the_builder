@@ -69,9 +69,10 @@ ladders = {1:38, 4:14, 8:30, 21:42, 28:76, 50:67, 71:92, 80:99}
 snakes = {32:10, 36:6, 48:26, 62:18, 88:24, 95:56, 97:78}
 
 #updates the tile
-def update_tile(tile):
+def update_tile(tile, roll):
   condn = "" #stores condition of the user
-  if tile == 100:
+  tile = tile + roll
+  if tile >= 100:
     condn = "win"
     return tile, condn
   elif tile in ladder_trig:
@@ -124,21 +125,21 @@ async def on_message(message):
     "points": 1,
     "level" : 0
   }
-  if (str(message.author) in keys):
-    user = db[str(message.author)]
+  if (str(message.author.id) in keys):
+    user = db[str(message.author.id)]
     updatePoint(user)
   else:
-    db[str(message.author)] = new_user
+    db[str(message.author.id)] = new_user
 
   #displays stats
   if msg.startswith('$stats'):
     status = "I wanna give you some info"
     
-    if (str(message.author) in keys):
-      user = db[str(message.author)]
+    if (str(message.author.id) in keys):
+      user = db[str(message.author.id)]
       updatePoint(user)
     else:
-      db[str(message.author)] = new_user
+      db[str(message.author.id)] = new_user
 
     points = user["points"]
     level = getLevel(user)
@@ -157,12 +158,6 @@ async def on_message(message):
     await message.channel.send("$game - to play snakes and ladders")
     await message.channel.send("And there are many more triggers you have to find it out yourself")
   #-------------------------------------------------------
-  
-  #testing pinging users----------------------------------
-  #if (msg == "ping"):
-  #  id = "293905713498161152"
-  #  await message.channel.send(f"<@{id}>")
-  #-------------------------------------------------------
 
   #Snakes and Ladders
   #-------------------------------------------------------
@@ -172,6 +167,12 @@ async def on_message(message):
   global players_game
   global next_turn
   global player_turn
+
+  if msg.startswith('$gameboard'): 
+    status = "Showing my gameboard"
+    await message.channel.send("This is your gameboard")
+    await message.channel.send("https://imgur.com/a/mhElTD1")
+
   if msg.startswith('$game'): 
     status = "Playing Snakes and Ladders"
 
@@ -197,10 +198,18 @@ async def on_message(message):
         await message.channel.send("Max players reached, try some other time.")
         player_number = player_number + 1
         game_status = "started"
+
+        await message.channel.send("This is your gameboard")
+        await message.channel.send("https://imgur.com/a/mhElTD1")
+        turn = get_turn()
+        ping = player[turn]
+        await message.channel.send(f"<@{ping}>, its your turn. Use $roll to roll the dice")
         next_turn = True
 
-  if msg == 'yes' and message.author.id in player and game_status=='waiting':
+  if msg == 'yes' and message.author.id == player[0] and game_status=='waiting':
     game_status = "started"
+    await message.channel.send("This is your gameboard")
+    await message.channel.send("https://imgur.com/a/mhElTD1")
     turn = get_turn()
     ping = player[turn]
     await message.channel.send(f"<@{ping}>, its your turn. Use $roll to roll the dice")
@@ -212,13 +221,6 @@ async def on_message(message):
     player_turn = 0
     player_number = 0
     next_turn = False
-  
-  #if next_turn:
-  #  turn  = get_turn()
-  #  ping = player[turn]
-  #
-  #  await message.channel.send(f"<@{ping}>, its your turn. Use $roll to roll the dice")
-  #  next_turn = False
 
   if msg == "$roll":
     turn  = get_turn()
@@ -226,11 +228,12 @@ async def on_message(message):
       dice = random.randint(1,6)
       await message.reply(f"You rolled ..... {str(dice)}")
 
-      tile, condn = update_tile(players_game[player[turn]])
-
+      tile, condn = update_tile(players_game[player[turn]], dice)
       players_game[player[turn]] = tile
 
       if condn == "win":
+        user = db[str(message.author.id)]
+        updatePoint(user, 100)
         game_status = "Completed"
         await message.reply(f"<@{player[turn]}>, You WIN!")
         await message.reply("Now go do something productive you lazy bum.")
