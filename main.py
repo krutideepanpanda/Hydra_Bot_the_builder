@@ -233,6 +233,8 @@ async def on_message(message):
       await message.channel.send(f"<@{player[1]}> id the new game leader")
     player.remove(temp)
     players_game.pop(temp)
+    print(player)
+    print(players_game)
     if len(player) < 2:
       game_status = 'completed'
       await message.channel.send(f"<@{message.author.id}>, because of you the game had to end. What a sore loser.")
@@ -257,13 +259,13 @@ async def on_message(message):
       elif condn == 'pseudo win':
         await message.reply(f"<@{player[turn]}>, So close yet so far away, you are now in {str(tile)}")
       elif condn == "ladder":
-        await message.reply(f"<@{player[turn]}>, You got a ladder!, you are now in {str(tile)}")
+        await message.reply(f"Thou hath encountered a ladder. Ride to Valhalla with the Valkyries.\n<@{player[turn]}>, you are now in {str(tile)}")
+        await message.reply("https://tenor.com/view/odin-is-with-us-magnus-bruun-izuniy-assassins-creed-valhalla-viking-gif-17554992")
       elif condn == "snake":
         await message.reply(f"Alas a snake, you fall into Hel to accompany Fenrir.\n<@{player[turn]}>, You got eaten by Jörmungandr!, you are now in {str(tile)}")
         await message.reply("https://tenor.com/view/god-of-war-world-serpent-snake-big-giant-gif-19204482")
       else :
-          await message.reply(f"Thou hath encountered a ladder. Ride to Valhalla with the Valkyries.\n<@{player[turn]}>, you are now in {str(tile)}")
-          await message.reply("https://tenor.com/view/odin-is-with-us-magnus-bruun-izuniy-assassins-creed-valhalla-viking-gif-17554992")
+          await message.reply("<@{player[turn]}>, you are now in {str(tile)}")
 
       if next_turn :
         update_turn()
