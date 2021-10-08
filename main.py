@@ -3,6 +3,7 @@ import os
 import requests
 import json
 import random
+from datetime import datetime
 from replit import db
 
 keys = db.keys()
@@ -63,10 +64,73 @@ players_game = {}
 player_turn = 0
 player_number = 0
 next_turn = False
-ladder_trig = [1, 4, 8, 21, 28, 50, 71, 80]
-snake_trig = [32, 36, 48, 62, 88, 95, 97]
-ladders = {1:38, 4:14, 8:30, 21:42, 28:76, 50:67, 71:92, 80:99}
-snakes = {32:10, 36:6, 48:26, 62:18, 88:24, 95:56, 97:78}
+ladder_trig = []
+snake_trig = []
+ladders = {}
+snakes = {}
+ladder_string = ''
+snake_string = ''
+#ladder_trig = [1, 4, 8, 21, 28, 50, 71, 80]
+#snake_trig = [32, 36, 48, 62, 88, 95, 97]
+#ladders = {1:38, 4:14, 8:30, 21:42, 28:76, 50:67, 71:92, 80:99}
+#snakes = {32:10, 36:6, 48:26, 62:18, 88:24, 95:56, 97:78}
+
+#generates the gameboard
+def seed_board():
+  random.seed(datetime.now())  
+
+  global ladders
+  global snakes
+  global ladder_trig
+  global snake_trig
+  global ladder_string
+  global snake_string
+  ladders = {}
+  snakes = {}
+  ladder_trig = []
+  snake_trig = []
+  used = []
+  sets = []
+  ladders_list = []
+  snakes_list = []
+  ladder_string = ''
+  snake_string = ''
+  n = random.choice(range(10,15,1)) # around 10 to 15 ladders and snakes
+  while (len(used)<(2*n)):
+      k = random.choice(range(1,100,1))
+      if k not in used:
+          used.append(k)
+  used.sort()
+  for i in range(n):
+      l = []
+      k = random.choice(used)
+      used.remove(k)
+      l.append(k)
+      m = random.choice(used)
+      used.remove(m)
+      l.append(m)
+      sets.append(l)
+  for i in sets:
+      if i[0]<i[1]:
+          ladders_list.append(i)
+      else:
+          snakes_list.append(i)
+  ladders = dict(ladders_list)
+  snakes = dict(snakes_list)
+
+  for ele in ladders:
+    ladder_trig.append(ele)
+  for ele in snakes:
+    snake_trig.append(ele)
+
+  for l in ladder_trig:
+    ladder_string = ladder_string + f'{l}, '
+
+  for s in snake_trig:
+    snake_string = snake_string + f'{s}, '
+
+
+
 
 #updates the tile
 def update_tile(tile, roll):
@@ -177,8 +241,9 @@ async def on_message(message):
 
   if msg=='$gameboard': 
     status = "Showing my gameboard"
-    await message.channel.send("This is your gameboard")
-    await message.channel.send("https://imgur.com/a/mhElTD1")
+
+    await message.channel.send(f"This is your gameboard\nLadders are lacated at tiles {ladder_string}\nSnakes are lacated at tiles {snake_string}")
+    await message.channel.send("As for where they lead to, well, find it out for yourself.")
 
   if msg=='$game': 
     status = "Playing Snakes and Ladders"
@@ -212,9 +277,12 @@ async def on_message(message):
         await message.channel.send("Max players reached, try some other time.")
         player_number = player_number + 1
         game_status = "started"
+        seed_board()
+        
+        #displaying gameboard
+        await message.channel.send(f"This is your gameboard\nLadders are lacated at tiles {ladder_string}\nSnakes are lacated at tiles {snake_string}")
+        await message.channel.send("As for where they lead to, well, find it out for yourself.")
 
-        await message.channel.send("This is your gameboard")
-        await message.channel.send("https://imgur.com/a/mhElTD1")
         turn = get_turn()
         ping = player[turn]
         await message.channel.send(f"<@{ping}>, its your turn. Use $roll to roll the dice")
@@ -222,8 +290,11 @@ async def on_message(message):
 
   if msg == 'yes' and message.author.id == player[0] and game_status=='waiting':
     game_status = "started"
-    await message.channel.send("This is your gameboard")
-    await message.channel.send("https://imgur.com/a/mhElTD1")
+    seed_board()
+
+    #displaying gameboard
+    await message.channel.send(f"This is your gameboard\nLadders are lacated at tiles {ladder_string}\nSnakes are lacated at tiles {snake_string}")
+    await message.channel.send("As for where they lead to, well, find it out for yourself.")
     turn = get_turn()
     ping = player[turn]
     await message.channel.send(f"<@{ping}>, its your turn. Use $roll to roll the dice")
@@ -237,7 +308,7 @@ async def on_message(message):
   if msg == '$forfeit' and game_status=='started':
     temp = message.author.id
     if player[0] == temp:
-      await message.channel.send(f"<@{player[1]}> id the new game leader")
+      await message.channel.send(f"<@{player[1]}> is the new game leader")
     player.remove(temp)
     players_game.pop(temp)
     if len(player) < 2:
@@ -259,7 +330,7 @@ async def on_message(message):
       if condn == "win":
         user = db[str(message.author.id)]
         updatePoint(user, 100)
-        game_status = "Completed"
+        game_status = "completed"
         await message.reply(f"<@{player[turn]}>, You WIN!\nNow go do something productive you lazy bum.")
         await message.reply("https://tenor.com/view/doctor-who-productive-nothing-lazy-gif-10273802")
         next_turn = False
