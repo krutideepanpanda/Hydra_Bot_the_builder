@@ -168,12 +168,12 @@ async def on_message(message):
   global next_turn
   global player_turn
 
-  if msg.startswith('$gameboard'): 
+  if msg=='$gameboard': 
     status = "Showing my gameboard"
     await message.channel.send("This is your gameboard")
     await message.channel.send("https://imgur.com/a/mhElTD1")
 
-  if msg.startswith('$game'): 
+  if msg=='$game': 
     status = "Playing Snakes and Ladders"
 
     if game_status == 'completed':
