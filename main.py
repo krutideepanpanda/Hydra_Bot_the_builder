@@ -239,6 +239,8 @@ async def on_message(message):
       game_status = 'completed'
       await message.channel.send(f"<@{message.author.id}>, because of you the game had to end. What a sore loser.")
       next_turn = False
+    else:
+      await message.channel.send(f"<@{message.author.id}>, you have been removed from the game")
 
   if msg == "$roll":
     turn  = get_turn()
@@ -265,7 +267,7 @@ async def on_message(message):
         await message.reply(f"Alas a snake, you fall into Hel to accompany Fenrir.\n<@{player[turn]}>, You got eaten by Jörmungandr!, you are now in {str(tile)}")
         await message.reply("https://tenor.com/view/god-of-war-world-serpent-snake-big-giant-gif-19204482")
       else :
-          await message.reply("<@{player[turn]}>, you are now in {str(tile)}")
+          await message.reply(f"<@{player[turn]}>, you are now in {str(tile)}")
 
       if next_turn :
         update_turn()
