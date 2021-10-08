@@ -157,13 +157,6 @@ async def on_message(message):
     
     info = "Lol what a loser. You need help for this also. Anyways here it is -\n$inspire - gives an inspirational quote\n$stats - see your stats\n$mood - see bots mood\n$game - to play snakes and ladders\n$gameboard - displays the gameboard\nAnd there are many more triggers you have to find it out yourself"
     await message.reply(info)
-    #await message.reply("Lol what a loser. You need help for this also. Anyways here it is -")
-    #await message.channel.send("$inspire - gives an inspirational quote")
-    #await message.channel.send("$stats - see your stats")
-    #await message.channel.send("$mood - see bots mood")
-    #await message.channel.send("$game - to play snakes and ladders")
-    #await message.channel.send("$gameboard - displays the gameboard")
-    #await message.channel.send("And there are many more triggers you have to find it out yourself")
   #-------------------------------------------------------
 
   #Snakes and Ladders
@@ -242,17 +235,19 @@ async def on_message(message):
         user = db[str(message.author.id)]
         updatePoint(user, 100)
         game_status = "Completed"
-        await message.reply(f"<@{player[turn]}>, You WIN!")
-        await message.reply("Now go do something productive you lazy bum.")
+        await message.reply(f"<@{player[turn]}>, You WIN!\nNow go do something productive you lazy bum.")
+        await message.reply("https://tenor.com/view/doctor-who-productive-nothing-lazy-gif-10273802")
         next_turn = False
       elif condn == 'pseudo win':
         await message.reply(f"<@{player[turn]}>, So close yet so far away, you are now in {str(tile)}")
       elif condn == "ladder":
         await message.reply(f"<@{player[turn]}>, You got a ladder!, you are now in {str(tile)}")
       elif condn == "snake":
-        await message.reply(f"<@{player[turn]}>, You got eaten by a snake!, you are now in {str(tile)}")
+        await message.reply(f"Alas a snake, you fall into Hel to accompany Fenrir.\n<@{player[turn]}>, You got eaten by Jörmungandr!, you are now in {str(tile)}")
+        await message.reply("https://tenor.com/view/god-of-war-world-serpent-snake-big-giant-gif-19204482")
       else :
-          await message.reply(f"<@{player[turn]}>, you are now in {str(tile)}")
+          await message.reply(f"Thou hath encountered a ladder. Ride to Valhalla with the Valkyries.\n<@{player[turn]}>, you are now in {str(tile)}")
+          await message.reply("https://tenor.com/view/odin-is-with-us-magnus-bruun-izuniy-assassins-creed-valhalla-viking-gif-17554992")
 
       if next_turn :
         update_turn()
