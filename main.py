@@ -224,10 +224,10 @@ async def on_message(message):
   
   if msg == '$cancel' and message.author.id == player[0]:
     game_status = 'completed'
-    await message.channel.send("Game canceled")
+    await message.channel.send("Game cancelled")
     next_turn = False
 
-  if msg == '$forfeit' and game_status=='started':
+  if msg == '$forefeit' and game_status=='started':
     temp = message.author.id
     if player[0] == id:
       await message.channel.send(f"<@{player[1]}> id the new game leader")
