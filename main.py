@@ -176,6 +176,13 @@ async def on_message(message):
   if msg.startswith('$game'): 
     status = "Playing Snakes and Ladders"
 
+    if game_status == 'completed':
+      player = []
+      players_game = {}
+      player_turn = 0
+      player_number = 0
+      next_turn = False
+
     new_player = message.author.id
 
     if game_status == 'started':
@@ -214,13 +221,22 @@ async def on_message(message):
     ping = player[turn]
     await message.channel.send(f"<@{ping}>, its your turn. Use $roll to roll the dice")
     next_turn = True
-
-  if game_status == 'completed':
-    player = []
-    players_game = {}
-    player_turn = 0
-    player_number = 0
+  
+  if msg == '$cancel' and message.author.id == player[0] and game_status=='started':
+    game_status = 'completed'
+    await message.channel.send("Game canceled")
     next_turn = False
+
+  if msg == '$forfeit' and game_status=='started':
+    temp = message.author.id
+    if player[0] == id:
+      await message.channel.send(f"<@{player[1]}> id the new game leader")
+    player.remove(temp)
+    players_game.pop(id)
+    if len(player) < 2:
+      game_status = 'completed'
+      await message.channel.send(f"<@{message.author.id}>, because of you the game had to end. What a sore loser.")
+      next_turn = False
 
   if msg == "$roll":
     turn  = get_turn()
