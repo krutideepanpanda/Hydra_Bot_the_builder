@@ -72,7 +72,10 @@ snakes = {32:10, 36:6, 48:26, 62:18, 88:24, 95:56, 97:78}
 def update_tile(tile, roll):
   condn = "" #stores condition of the user
   tile = tile + roll
-  if tile >= 100:
+  if tile > 100:
+    condn = "pseudo win"
+    return (tile-roll), condn
+  elif tile == 100:
     condn = "win"
     return tile, condn
   elif tile in ladder_trig:
@@ -107,6 +110,7 @@ def get_quote():
 @client.event
 async def on_ready():
   print('We have logged in as {0.user}'.format(client))
+  await client.change_presence(activity=discord.Game('$help'))
 
 # replying to messages
 @client.event
@@ -150,13 +154,16 @@ async def on_message(message):
   #help---------------------------------------------------
   if msg.startswith('$help'):
     status = "Do something you bloody loser"    
-
-    await message.reply("Lol what a loser. You need help for this also. Anyways here it is -")
-    await message.channel.send("$inspire - gives an inspirational quote")
-    await message.channel.send("$stats - see your stats")
-    await message.channel.send("$mood - see bots mood")
-    await message.channel.send("$game - to play snakes and ladders")
-    await message.channel.send("And there are many more triggers you have to find it out yourself")
+    
+    info = "Lol what a loser. You need help for this also. Anyways here it is -\n$inspire - gives an inspirational quote\n$stats - see your stats\n$mood - see bots mood\n$game - to play snakes and ladders\n$gameboard - displays the gameboard\nAnd there are many more triggers you have to find it out yourself"
+    await message.reply(info)
+    #await message.reply("Lol what a loser. You need help for this also. Anyways here it is -")
+    #await message.channel.send("$inspire - gives an inspirational quote")
+    #await message.channel.send("$stats - see your stats")
+    #await message.channel.send("$mood - see bots mood")
+    #await message.channel.send("$game - to play snakes and ladders")
+    #await message.channel.send("$gameboard - displays the gameboard")
+    #await message.channel.send("And there are many more triggers you have to find it out yourself")
   #-------------------------------------------------------
 
   #Snakes and Ladders
@@ -238,6 +245,8 @@ async def on_message(message):
         await message.reply(f"<@{player[turn]}>, You WIN!")
         await message.reply("Now go do something productive you lazy bum.")
         next_turn = False
+      elif condn == 'pseudo win':
+        await message.reply(f"<@{player[turn]}>, So close yet so far away, you are now in {str(tile)}")
       elif condn == "ladder":
         await message.reply(f"<@{player[turn]}>, You got a ladder!, you are now in {str(tile)}")
       elif condn == "snake":
@@ -245,11 +254,11 @@ async def on_message(message):
       else :
           await message.reply(f"<@{player[turn]}>, you are now in {str(tile)}")
 
-    if next_turn :
-      update_turn()
-      turn = get_turn()
-      ping = player[turn]
-      await message.channel.send(f"<@{ping}>, its your turn. Use $roll to roll the dice")
+      if next_turn :
+        update_turn()
+        turn = get_turn()
+        ping = player[turn]
+        await message.channel.send(f"<@{ping}>, its your turn. Use $roll to roll the dice")
         
     else:
       await message.reply("Its not your turn, so get rickrolled.")
